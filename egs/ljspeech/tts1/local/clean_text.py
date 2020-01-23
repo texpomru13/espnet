@@ -42,7 +42,7 @@ if __name__ == "__main__":
     with codecs.open(args.text, 'r', 'utf-8') as fid:
         dct = {}
         for line in fid.readlines():
-            id, _, content = line.split("|")
+            id, content = line.split("|")
             dct[id] = content.rstrip()
 
         od = collections.OrderedDict(sorted(dct.items()))
