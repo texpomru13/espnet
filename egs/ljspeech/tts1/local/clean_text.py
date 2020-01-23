@@ -39,18 +39,19 @@ if __name__ == "__main__":
                         choices=["char", "phn"],
                         help="Input transcription type")
     args = parser.parse_args()
-    with codecs.open(args.text, 'r', 'utf-8') as fid:
-        dct = {}
-        for line in fid.readlines():
-            id, content = line.split("|")
-            dct[id] = content.rstrip()
+    # with codecs.open(args.text, 'r', 'utf-8') as fid:
+    data = open(rgs.text).read().split('\n')
+    dct = {}
+    for line in data:
+        id, content = line.split("|")
+        dct[id] = content.rstrip()
 
-        od = collections.OrderedDict(sorted(dct.items()))
-        #clean_content = custom_english_cleaners(content.rstrip())
-        for id in od:
-            if args.trans_type == "phn":    
-                # text = clean_content.lower()
-                # clean_content = g2p(text)
-                _, clean_content = text_to_sequence(od[id], ['basic_cleaners'], cmd)
+    od = collections.OrderedDict(sorted(dct.items()))
+    #clean_content = custom_english_cleaners(content.rstrip())
+    for id in od:
+        if args.trans_type == "phn":    
+            # text = clean_content.lower()
+            # clean_content = g2p(text)
+            _, clean_content = text_to_sequence(od[id], ['basic_cleaners'], cmd)
 
-            print("%s %s" % (id, clean_content))
+        print("%s %s" % (id, clean_content))
