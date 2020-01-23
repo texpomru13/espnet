@@ -40,7 +40,7 @@ if __name__ == "__main__":
                         help="Input transcription type")
     args = parser.parse_args()
     # with codecs.open(args.text, 'r', 'utf-8') as fid:
-    data = open(rgs.text).read().split('\n')
+    data = open(args.text).read().split('\n')
     dct = {}
     for line in data:
         id, content = line.split("|")
