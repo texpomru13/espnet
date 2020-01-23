@@ -52,7 +52,7 @@ griffin_lim_iters=64  # the number of iterations of Griffin-Lim
 
 # objective evaluation related
 asr_model="librispeech.transformer.ngpu4"
-eval_tts_model=true                            # true: evaluate tts model, false: evaluate ground truth
+eval_tts_model=false                            # true: evaluate tts model, false: evaluate ground truth
 wer=true                                       # true: evaluate CER & WER, false: evaluate only CER
 
 # root directory of db
@@ -82,7 +82,7 @@ if [ ${stage} -le 0 ] && [ ${stop_stage} -ge 0 ]; then
     ### Task dependent. You have to make data the following preparation part by yourself.
     ### But you can utilize Kaldi recipes in most cases
     echo "stage 0: Data preparation"
-    local/data_prep.sh ${db_root}/LJSpeech-1.1 data/${trans_type}_train ${trans_type}
+    local/data_prep.sh ${db_root}/F_CA data/${trans_type}_train ${trans_type}
     utils/validate_data_dir.sh --no-feats data/${trans_type}_train
 fi
 
@@ -155,46 +155,7 @@ else
 fi
 expdir=exp/${expname}
 mkdir -p ${expdir}
-if [ ${stage} -le 3 ] && [ ${stop_stage} -ge 3 ]; then
-    echo "stage 3: Text-to-speech model training"
-    if [ -n "${teacher_model_path}" ] && echo "${train_config}" | grep -q "fastspeech"; then
-        # setup feature and duration for fastspeech knowledge distillation training
-        teacher_expdir=$(dirname "$(dirname "${teacher_model_path}")")
-        teacher_outdir=outputs_$(basename ${teacher_model_path})_$(basename ${teacher_decode_config%.*})
-        teacher_outdir=${teacher_expdir}/${teacher_outdir}
-        if [ ! -e ${teacher_outdir}/.done ]; then
-            local/setup_knowledge_dist.sh \
-                --nj ${nj} \
-                --verbose ${verbose} \
-                --dict ${dict} \
-                --trans_type ${trans_type} \
-                --teacher_model_path ${teacher_model_path} \
-                --decode_config ${teacher_decode_config} \
-                --train_set ${train_set} \
-                --dev_set ${dev_set} \
-                --do_filtering ${do_filtering} \
-                --focus_rate_thres ${focus_rate_thres}
-        fi
-        tr_json=${teacher_outdir}/dump/${train_set}/data.json
-        dt_json=${teacher_outdir}/dump/${dev_set}/data.json
-    else
-        tr_json=${feat_tr_dir}/data.json
-        dt_json=${feat_dt_dir}/data.json
-    fi
-    ${cuda_cmd} --gpu ${ngpu} ${expdir}/train.log \
-        tts_train.py \
-           --backend ${backend} \
-           --ngpu ${ngpu} \
-           --minibatches ${N} \
-           --outdir ${expdir}/results \
-           --tensorboard-dir tensorboard/${expname} \
-           --verbose ${verbose} \
-           --seed ${seed} \
-           --resume ${resume} \
-           --train-json ${tr_json} \
-           --valid-json ${dt_json} \
-           --config ${train_config}
-fi
+        
 
 if [ ${n_average} -gt 0 ]; then
     model=model.last${n_average}.avg.best
