@@ -30,7 +30,7 @@ win_length="" # window length
 
 # char or phn
 # In the case of phn, input transcription is convered to phoneem using https://github.com/Kyubyong/g2p.
-trans_type="char"
+trans_type="phn"
 
 # config files
 train_config=conf/train_pytorch_tacotron2.yaml # you can select from conf or conf/tuning.
@@ -73,10 +73,10 @@ train_set="${trans_type}_train_no_dev"
 dev_set="${trans_type}_dev"
 eval_set="${trans_type}_eval"
 
-if [ ${stage} -le -1 ] && [ ${stop_stage} -ge -1 ]; then
-    echo "stage -1: Data Download"
-    local/data_download.sh ${db_root}
-fi
+# if [ ${stage} -le -1 ] && [ ${stop_stage} -ge -1 ]; then
+#     echo "stage -1: Data Download"
+#     local/data_download.sh ${db_root}
+# fi
 
 if [ ${stage} -le 0 ] && [ ${stop_stage} -ge 0 ]; then
     ### Task dependent. You have to make data the following preparation part by yourself.
