@@ -42,6 +42,8 @@ if __name__ == "__main__":
     # with codecs.open(args.text, 'r', 'utf-8') as fid:
     data = codecs.open(args.text, 'r', 'utf-8').read().split('\n')
     dct = {}
+    print(len(data))
+    print(data)
     for line in data:
         id, content = line.split("|")
         dct[id] = content.rstrip()
