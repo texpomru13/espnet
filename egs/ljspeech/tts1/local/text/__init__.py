@@ -93,7 +93,7 @@ def text_to_sequence(text, cleaner_names, dictionary=None):
               try:
                 sequence.pop()
               except:
-                print(clean_text)
+                # print(clean_text)
             if t.startswith("{"):
               sequence += _arpabet_to_sequence(t[1:-1])
             else:
