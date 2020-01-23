@@ -4,6 +4,7 @@
  
 import sys
 import re
+import pickle
 
 softletters=set(u"яёюиье")
 startsyl=set(u"#ъьаяоёуюэеиы-")
@@ -159,11 +160,13 @@ valid_symbols = ['a1', 'a0', 'i1', 'h', 'm', 'lj', 'b', 'z', 'k', 'd', 'nj', 'i0
 _valid_symbol_set = set(valid_symbols)
 
 def read_cmu(filse):
-    data = open(filse).read().split('\n')
-    cmudct = {}
-    for i in data:
-        info = i.split(' ')
-        cmudct[info[0]] = ' '.join(info[1:])
+    with open(filse, 'rb') as handle:
+        cmudct = pickle.load(handle)
+    # data = open(filse).read().split('\n')
+    # cmudct = {}
+    # for i in data:
+    #     info = i.split(' ')
+    #     cmudct[info[0]] = ' '.join(info[1:])
     return cmudct
 
 
