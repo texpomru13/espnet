@@ -6,6 +6,7 @@
 import argparse
 import codecs
 import nltk
+import collections
 
 #from text.cleaners import custom_english_cleaners
 from text import text_to_sequence, cmudict
@@ -39,12 +40,17 @@ if __name__ == "__main__":
                         help="Input transcription type")
     args = parser.parse_args()
     with codecs.open(args.text, 'r', 'utf-8') as fid:
+        dct = {}
         for line in fid.readlines():
             id, _, content = line.split("|")
-            #clean_content = custom_english_cleaners(content.rstrip())
-            if args.trans_type == "phn":
+            dct[id] = content.rstrip()
+
+        od = collections.OrderedDict(sorted(dct.items()))
+        #clean_content = custom_english_cleaners(content.rstrip())
+        for id in od:
+            if args.trans_type == "phn":    
                 # text = clean_content.lower()
                 # clean_content = g2p(text)
-                _, clean_content = text_to_sequence(content.rstrip(), ['basic_cleaners'], cmd)
+                _, clean_content = text_to_sequence(od[id], ['basic_cleaners'], cmd)
 
             print("%s %s" % (id, clean_content))
