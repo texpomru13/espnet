@@ -1,5 +1,5 @@
-MAIN_ROOT=$PWD/../../../../..
-KALDI_ROOT=$MAIN_ROOT/kaldi
+MAIN_ROOT=$PWD/../../..
+KALDI_ROOT=$MAIN_ROOT/../../kaldi
 
 [ -f $KALDI_ROOT/tools/env.sh ] && . $KALDI_ROOT/tools/env.sh
 export PATH=$PWD/utils/:$KALDI_ROOT/tools/openfst/bin:$KALDI_ROOT/tools/sctk/bin:$PWD:$PATH
