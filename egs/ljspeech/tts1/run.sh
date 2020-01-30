@@ -33,13 +33,13 @@ win_length="" # window length
 trans_type="phn"
 
 # config files
-train_config=conf/train_pytorch_tacotron2.yaml # you can select from conf or conf/tuning.
+train_config=conf/tuning/train_fastspeech.v4.single.yaml # you can select from conf or conf/tuning.
                                                # now we support tacotron2, transformer, and fastspeech
                                                # see more info in the header of each config.
 decode_config=conf/decode.yaml
 
 # knowledge distillation related
-teacher_model_path=""
+teacher_model_path=exp/phn_train_no_dev_pytorch_train_pytorch_tacotron2/results/model.last1.avg.best
 teacher_decode_config=conf/decode_for_knowledge_dist.yaml
 do_filtering=false     # whether to do filtering using focus rate
 focus_rate_thres=0.65  # for phn taco2 around 0.65, phn transformer around 0.9
@@ -140,7 +140,7 @@ if [ ${stage} -le 2 ] && [ ${stop_stage} -ge 2 ]; then
 
     # make json labels
     data2json.sh --feat ${feat_tr_dir}/feats.scp --trans_type ${trans_type} \
-         data/${train_set} ${dict} > ${feat_tr_dir}/data.json
+         data/${train_set} ${dict} > ${feat_tr_dir}/data.Json
     data2json.sh --feat ${feat_dt_dir}/feats.scp --trans_type ${trans_type} \
          data/${dev_set} ${dict} > ${feat_dt_dir}/data.json
     data2json.sh --feat ${feat_ev_dir}/feats.scp --trans_type ${trans_type} \
