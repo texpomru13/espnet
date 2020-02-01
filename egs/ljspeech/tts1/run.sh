@@ -33,7 +33,7 @@ win_length="" # window length
 trans_type="phn"
 
 # config files
-train_config=conf/tuning/train_fastspeech.v3.yaml # you can select from conf or conf/tuning.
+train_config=conf/tuning/train_fastspeech.v4.single.yaml # you can select from conf or conf/tuning.
                                                # now we support tacotron2, transformer, and fastspeech
                                                # see more info in the header of each config.
 decode_config=conf/decode.yaml
