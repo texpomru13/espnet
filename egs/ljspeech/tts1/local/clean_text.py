@@ -10,7 +10,7 @@ import collections
 
 #from text.cleaners import custom_english_cleaners
 from text import text_to_sequence, cmudict
-cmd = cmudict.CMUDict('local/rudic.pcl')
+cmd = cmudict.CMUDict('local/endic.pcl')
 
 
 # try:

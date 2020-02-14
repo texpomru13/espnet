@@ -11,16 +11,11 @@ _id_to_symbol = {i: s for i, s in enumerate(symbols)}
 # Regular expression matching text enclosed in curly braces:
 _curly_re = re.compile(r'(.*?)\{(.+?)\}(.*)')
 
-val_sybols = 'йцукенгшщзхъёфывапролджэячсмитьбю-'
-punctuation = '!\'"(),.:;…? '
+val_sybols = 'qwertyuiopasdfghjklzxcvbnm\'-'
+punctuation = '!"(),.:;…? '
 
 
 def get_arpabet(word, dictionary):
-#   if word[-1] in punctuation:
-#     word_arpabet = dictionary.lookup(word[:-1])
-#   elif word[0] in punctuation and word[-1] in punctuation:
-#     word_arpabet = dictionary.lookup(word[1:-1])
-#   else:
   if word in punctuation:
     return word
   word_arpabet = dictionary.lookup(word)

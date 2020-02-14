@@ -20,7 +20,7 @@ seed=1       # random seed number
 resume=""    # the snapshot path to resume (if set empty, no effect)
 
 # feature extraction related
-fs=22050      # sampling frequency
+fs=26000      # sampling frequency
 fmax=7600     # maximum frequency
 fmin=80       # minimum frequency
 n_mels=80     # number of mel basis
