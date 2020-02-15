@@ -54,7 +54,7 @@ set -e
 set -u
 set -o pipefail
 
-train_set=train_clean_460
+train_set=test_clean
 dev_set=dev_clean
 eval_set=test_clean
 
@@ -81,7 +81,7 @@ feat_dt_dir=${dumpdir}/${dev_set}; mkdir -p ${feat_dt_dir}
 feat_ev_dir=${dumpdir}/${eval_set}; mkdir -p ${feat_ev_dir}
 if [ ${stage} -le 1 ] && [ ${stop_stage} -ge 1 ]; then
     ### Task dependent. You have to design training and dev name by yourself.
-    ### But you can utilize Kaldi recipes in most cases
+    ### But you can utilize Kaldi recipes in most cases 
     echo "stage 1: Feature Generation"
 
     fbankdir=fbank

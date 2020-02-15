@@ -54,6 +54,6 @@ if __name__ == "__main__":
         if args.trans_type == "phn":    
             # text = clean_content.lower()
             # clean_content = g2p(text)
-            _, clean_content = text_to_sequence(od[id], ['basic_cleaners'], cmd)
+            _, clean_content = text_to_sequence(od[id], ['english_cleaners'], cmd)
 
         print("%s %s" % (id, clean_content))
