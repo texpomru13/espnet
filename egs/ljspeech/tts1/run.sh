@@ -140,7 +140,7 @@ if [ ${stage} -le 2 ] && [ ${stop_stage} -ge 2 ]; then
 
     # make json labels
     data2json.sh --feat ${feat_tr_dir}/feats.scp --trans_type ${trans_type} \
-         data/${train_set} ${dict} > ${feat_tr_dir}/data.Json
+         data/${train_set} ${dict} > ${feat_tr_dir}/data.json
     data2json.sh --feat ${feat_dt_dir}/feats.scp --trans_type ${trans_type} \
          data/${dev_set} ${dict} > ${feat_dt_dir}/data.json
     data2json.sh --feat ${feat_ev_dir}/feats.scp --trans_type ${trans_type} \
