@@ -5,6 +5,10 @@
 import sys
 import re
 import pickle
+from rupo.api import Engine
+
+engine = Engine(language="ru")
+engine.load('rupo/data/stress_models/stress_ru.h5', 'rupo/data/dict/zaliznyak.txt')
 
 softletters=set(u"яёюиье")
 startsyl=set(u"#ъьаяоёуюэеиы-")
@@ -204,6 +208,10 @@ class CMUDict:
     elif word in self._entries:
         return self._entries.get(word)
     else:
+        z = engine.get_stresses(word)
+        for i in reversed(z):
+            word = word[:z[0]] + '+' + word[z[0]:]
+
         phones = ("#" + word + "#")
 
 
